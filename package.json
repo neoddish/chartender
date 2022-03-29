@@ -1,0 +1,79 @@
+{
+  "name": "chartender",
+  "version": "0.1.0",
+  "description": "Sliding a chart right into your hand.",
+  "main": "index.js",
+  "scripts": {
+    "lint-staged": "lint-staged",
+    "prepare": "husky install",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"__tests__/**/*.ts\"",
+    "format-check": "prettier ./src/**/*.{ts,tsx} ./__tests__/**/*.ts --check",
+    "lint": "eslint ./src/**/*.{ts,tsx} ./__tests__/**/*.ts && npm run format-check",
+    "fix": "eslint ./src/**/*.{ts,tsx} ./__tests__/**/*.ts --fix && npm run format",
+    "test": "jest",
+    "start": "webpack serve --port 8888",
+    "build:site": "Webpack ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neoddish/chartender.git"
+  },
+  "author": {
+    "name": "Jiazhe Wang",
+    "url": "https://github.com/neoddish"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neoddish/chartender/issues"
+  },
+  "homepage": "https://github.com/neoddish/chartender#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@types/jest": "^27.4.1",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "babel-loader": "^8.2.4",
+    "babel-plugin-import": "^1.13.3",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "file-loader": "^6.2.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.1",
+    "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.3",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
