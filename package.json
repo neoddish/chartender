@@ -28,8 +28,16 @@
   },
   "homepage": "https://github.com/neoddish/chartender#readme",
   "dependencies": {
+    "@antv/antv-spec": "0.1.0-alpha.18",
+    "@antv/chart-advisor": "^2.0.0",
+    "@antv/g2plot": "^2.4.13",
+    "@antv/g6": "^4.6.4",
+    "ajv": "^8.11.0",
+    "antd": "^4.19.3",
+    "monaco-editor": "^0.33.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-monaco-editor": "^0.47.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.7",
@@ -61,6 +69,7 @@
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "lint-staged": "^12.3.7",
+    "monaco-editor-webpack-plugin": "^7.0.1",
     "prettier": "^2.6.1",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.1.4",
