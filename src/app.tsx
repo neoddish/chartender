@@ -69,7 +69,7 @@ export default function App() {
 
   useEffect(() => {
     if (canvas.current) {
-      const results = myChartAdvisor.advise({ data: (dataPresets as any)[currentDataPreset] });
+      const results = myChartAdvisor.advise({ data: lastEditorContent });
       if (results && results.length) {
         const result = results[0];
         specToG2Plot(result.spec, canvas.current);
@@ -103,7 +103,15 @@ export default function App() {
           />
         </div>
         <div className="vis-wrapper">
-          <div id="container" className="vis" ref={canvas}></div>
+          <div
+            id="container"
+            className="vis"
+            ref={canvas}
+            style={!isValid(editorContent) ? { opacity: 0.4 } : {}}
+          ></div>
+          <div id="errormsg" className="vis-mask" style={!isValid(editorContent) ? { bottom: 0 } : {}}>
+            <h2>invalid data!</h2>
+          </div>
         </div>
       </div>
     </div>
