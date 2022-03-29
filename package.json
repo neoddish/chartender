@@ -12,7 +12,9 @@
     "fix": "eslint ./src/**/*.{ts,tsx} ./__tests__/**/*.ts --fix && npm run format",
     "test": "jest",
     "start": "webpack serve --port 8888",
-    "build:site": "Webpack ./src"
+    "build:site": "Webpack ./src",
+    "deploy": "gh-pages -d public",
+    "deploy:site": "npm install && npm run build:site && npm run deploy"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/neoddish/chartender/issues"
   },
-  "homepage": "https://github.com/neoddish/chartender#readme",
+  "homepage": "https://neoddish.github.io/chartender",
   "dependencies": {
     "@antv/antv-spec": "0.1.0-alpha.18",
     "@antv/chart-advisor": "^2.0.0",
@@ -64,6 +66,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "file-loader": "^6.2.0",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "less": "^4.1.2",

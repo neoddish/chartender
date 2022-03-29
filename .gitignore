@@ -80,3 +80,7 @@ temp.diff
 
 # ignore dist files
 .vscode/
+
+# website build
+public/*
+!public/index.html
