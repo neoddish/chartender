@@ -1,0 +1,38 @@
+.x6-node-selected .node {
+  border-color: #1890ff;
+  border-radius: 2px;
+  box-shadow: 0 0 0 4px #d4e8fe;
+}
+.x6-node-selected .node.success {
+  border-color: #52c41a;
+  border-radius: 2px;
+  box-shadow: 0 0 0 4px #ccecc0;
+}
+.x6-node-selected .node.failed {
+  border-color: #ff4d4f;
+  border-radius: 2px;
+  box-shadow: 0 0 0 4px #fedcdc;
+}
+.x6-edge:hover path:nth-child(2) {
+  stroke: #1890ff;
+  stroke-width: 1px;
+}
+
+.x6-edge-selected path:nth-child(2) {
+  stroke: #1890ff;
+  stroke-width: 1.5px !important;
+}
+
+@keyframes running-line {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
