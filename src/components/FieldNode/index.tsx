@@ -9,10 +9,11 @@ import './index.less';
 
 export interface FieldNodeData {
   id: string;
+  nodeType: 'field-node';
   fieldType: 'dimension' | 'measure';
   dataType: DataType;
   status: string;
-  label?: string;
+  fieldName: string;
 }
 
 export class FieldNode extends React.Component<{ node?: Node }> {
@@ -29,12 +30,12 @@ export class FieldNode extends React.Component<{ node?: Node }> {
   render() {
     const { node } = this.props;
     const data = node?.getData() as FieldNodeData;
-    const { label, fieldType, dataType } = data;
+    const { nodeType, fieldName, fieldType, dataType } = data;
 
     return (
-      <div className={`node ${fieldType}`}>
+      <div className={`node ${nodeType} ${fieldType}`}>
         <DataTypeIcon type={dataType} />
-        <span className="label">{label}</span>
+        <span className="label">{fieldName}</span>
         <span className="status">
           <StatusIcon status="default" />
         </span>

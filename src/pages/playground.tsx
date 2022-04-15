@@ -1,166 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import { Graph, Path, Cell } from '@antv/x6';
+import { Graph, Cell } from '@antv/x6';
 import '@antv/x6-react-shape';
 
-import { FieldNode, FieldNodeData } from '../components';
+import { FieldNodeData } from '../components';
+import { CELL_NAMES } from '../constants';
+import { registerPipeConnector, registerFieldDatapropEdge, registerFieldNode, registerDatapropNode } from '../graph';
 
 import './index.less';
 
-interface PlaygroundProps {}
+registerFieldNode();
+registerDatapropNode();
+registerFieldDatapropEdge();
+registerPipeConnector();
 
-Graph.registerNode(
-  'dag-node',
-  {
-    inherit: 'react-shape',
-    width: 180,
-    height: 36,
-    component: <FieldNode />,
-    ports: {
-      groups: {
-        top: {
-          position: 'top',
-          attrs: {
-            circle: {
-              r: 4,
-              magnet: true,
-              stroke: '#C2C8D5',
-              strokeWidth: 1,
-              fill: '#fff',
-            },
-          },
-        },
-        bottom: {
-          position: 'bottom',
-          attrs: {
-            circle: {
-              r: 4,
-              magnet: true,
-              stroke: '#C2C8D5',
-              strokeWidth: 1,
-              fill: '#fff',
-            },
-          },
-        },
-      },
-    },
-  },
-  true
-);
-
-Graph.registerEdge(
-  'dag-edge',
-  {
-    inherit: 'edge',
-    attrs: {
-      line: {
-        stroke: '#C2C8D5',
-        strokeWidth: 1,
-        targetMarker: null,
-      },
-    },
-  },
-  true
-);
-
-Graph.registerConnector(
-  'algo-connector',
-  (s, e) => {
-    const offset = 4;
-    const deltaY = Math.abs(e.y - s.y);
-    const control = Math.floor((deltaY / 3) * 2);
-
-    const v1 = { x: s.x, y: s.y + offset + control };
-    const v2 = { x: e.x, y: e.y - offset - control };
-
-    return Path.normalize(
-      `M ${s.x} ${s.y}
-       L ${s.x} ${s.y + offset}
-       C ${v1.x} ${v1.y} ${v2.x} ${v2.y} ${e.x} ${e.y - offset}
-       L ${e.x} ${e.y}
-      `
-    );
-  },
-  true
-);
-
-// TODO temp
-const nodeStatusList = [
-  [
-    {
-      id: '1',
-      status: 'running',
-    },
-    {
-      id: '2',
-      status: 'default',
-    },
-    {
-      id: '3',
-      status: 'default',
-    },
-    {
-      id: '4',
-      status: 'default',
-    },
-  ],
-  [
-    {
-      id: '1',
-      status: 'success',
-    },
-    {
-      id: '2',
-      status: 'running',
-    },
-    {
-      id: '3',
-      status: 'default',
-    },
-    {
-      id: '4',
-      status: 'default',
-    },
-  ],
-  [
-    {
-      id: '1',
-      status: 'success',
-    },
-    {
-      id: '2',
-      status: 'success',
-    },
-    {
-      id: '3',
-      status: 'running',
-    },
-    {
-      id: '4',
-      status: 'running',
-    },
-  ],
-  [
-    {
-      id: '1',
-      status: 'success',
-    },
-    {
-      id: '2',
-      status: 'success',
-    },
-    {
-      id: '3',
-      status: 'success',
-    },
-    {
-      id: '4',
-      status: 'failed',
-    },
-  ],
-];
-
-export const Playground: React.FC<PlaygroundProps> = () => {
+export const Playground: React.FC = () => {
   const [pipeGraph, setPipeGraph] = useState<Graph>();
 
   useEffect(() => {
@@ -169,7 +23,7 @@ export const Playground: React.FC<PlaygroundProps> = () => {
       width: 1440,
       height: 900,
       background: {
-        color: '#f7f7f7',
+        color: '#f2f5f7',
       },
       panning: {
         enabled: true,
@@ -199,7 +53,7 @@ export const Playground: React.FC<PlaygroundProps> = () => {
         allowBlank: false,
         allowLoop: false,
         highlight: true,
-        connector: 'algo-connector',
+        connector: CELL_NAMES.pipeConnector,
         connectionPoint: 'anchor',
         anchor: 'center',
         validateMagnet({ magnet }) {
@@ -207,7 +61,7 @@ export const Playground: React.FC<PlaygroundProps> = () => {
         },
         createEdge() {
           return graph.createEdge({
-            shape: 'dag-edge',
+            shape: CELL_NAMES.fieldDatapropEdge,
             attrs: {
               line: {
                 strokeDasharray: '5 5',
@@ -237,9 +91,9 @@ export const Playground: React.FC<PlaygroundProps> = () => {
 
     graph.on('node:change:data', ({ node }) => {
       const edges = graph.getIncomingEdges(node);
-      const { type } = node.getData() as FieldNodeData;
+      const { fieldType } = node.getData() as FieldNodeData;
       edges?.forEach((edge) => {
-        if (type === 'dimension') {
+        if (fieldType === 'dimension') {
           edge.attr('line/strokeDasharray', 5);
           edge.attr('line/style/animation', 'running-line 30s infinite linear');
         } else {
@@ -253,7 +107,7 @@ export const Playground: React.FC<PlaygroundProps> = () => {
     const init = (data: Cell.Metadata[]) => {
       const cells: Cell[] = [];
       data.forEach((item) => {
-        if (item.shape === 'dag-node') {
+        if ([CELL_NAMES.fieldNode, CELL_NAMES.datapropNode].includes(`${item.shape}`)) {
           cells.push(graph.createNode(item));
         } else {
           cells.push(graph.createEdge(item));
@@ -262,29 +116,10 @@ export const Playground: React.FC<PlaygroundProps> = () => {
       graph.resetCells(cells);
     };
 
-    // 显示节点状态
-    const showNodeStatus = async (statusList: FieldNodeData[][]) => {
-      const status = statusList.shift();
-      status?.forEach((item) => {
-        const { id, type } = item;
-        const node = graph.getCellById(id);
-        const data = node.getData() as FieldNodeData;
-        node.setData({
-          ...data,
-          type,
-        });
-      });
-      setTimeout(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        showNodeStatus(statusList);
-      }, 3000);
-    };
-
     fetch('../data/test.json')
       .then((response) => response.json())
       .then((data) => {
         init(data);
-        showNodeStatus(nodeStatusList);
         graph.centerContent();
       });
 
@@ -295,13 +130,27 @@ export const Playground: React.FC<PlaygroundProps> = () => {
   const getPositions = () => {
     const cells = pipeGraph?.toJSON().cells;
     const result = (cells as any[])
-      .filter((cell) => cell.shape === 'dag-node')
+      .filter((cell) => cell.shape === CELL_NAMES.fieldNode)
       .map((cell) => {
         return { name: cell.data.label, x: cell.position.x, y: cell.position.y };
       });
 
     return result;
   };
+
+  // const changeSize = () => {
+  //   console.log(
+  //     pipeGraph
+  //       ?.getNodes()
+  //       .find((node) => node.id === 'fn-1')
+  //       ?.position()
+  //   );
+
+  //   pipeGraph
+  //     ?.getNodes()
+  //     .find((node) => node.id === 'fn-1')
+  //     ?.scale(1, 2, { x: 0, y: 200 });
+  // };
 
   return (
     <div>
