@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Graph, Path } from '@antv/x6';
+import { Graph, Markup, Path } from '@antv/x6';
 import '@antv/x6-react-shape';
 
-import { FieldNode, DataPropNode } from '../components';
+import { FieldNode, DataPropNode, ChartThumbNode } from '../components';
 import { CELL_NAMES } from '../constants';
 
 export const registerFieldNode = () => {
@@ -76,11 +76,83 @@ export const registerDatapropNode = () => {
   );
 };
 
+export const registerChartThumbNode = () => {
+  Graph.registerNode(
+    CELL_NAMES.chartThumbNode,
+    {
+      inherit: 'react-shape',
+      width: 220,
+      height: 100,
+      component: <ChartThumbNode />,
+      ports: {
+        groups: {
+          left: {
+            position: 'left',
+            attrs: {
+              circle: {
+                r: 4,
+                magnet: true,
+                stroke: '#C2C8D5',
+                strokeWidth: 1,
+                fill: '#fff',
+              },
+            },
+          },
+          right: {
+            position: 'right',
+            attrs: {
+              circle: {
+                r: 4,
+                magnet: true,
+                stroke: '#C2C8D5',
+                strokeWidth: 1,
+                fill: '#fff',
+              },
+            },
+          },
+        },
+      },
+    },
+    true
+  );
+};
+
 export const registerFieldDatapropEdge = () => {
   Graph.registerEdge(
     CELL_NAMES.fieldDatapropEdge,
     {
       inherit: 'edge',
+      attrs: {
+        line: {
+          stroke: '#C2C8D5',
+          strokeWidth: 1,
+          targetMarker: null,
+        },
+      },
+    },
+    true
+  );
+};
+
+export const registerDatapropChartThumbEdge = () => {
+  Graph.registerEdge(
+    CELL_NAMES.datapropChartThumbEdge,
+    {
+      inherit: 'edge',
+      defaultLabel: {
+        markup: Markup.getForeignObjectMarkup(),
+        attrs: {
+          fo: {
+            width: 30,
+            height: 30,
+            x: -15,
+            y: -15,
+          },
+        },
+      },
+      label: {
+        position: 0.5,
+      },
       attrs: {
         line: {
           stroke: '#C2C8D5',

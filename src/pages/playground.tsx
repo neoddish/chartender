@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 import { Graph, Cell } from '@antv/x6';
 import '@antv/x6-react-shape';
 
-import { FieldNodeData } from '../components';
+import { FieldNodeData, EncodingLabel } from '../components';
 import { CELL_NAMES } from '../constants';
-import { registerPipeConnector, registerFieldDatapropEdge, registerFieldNode, registerDatapropNode } from '../graph';
+import {
+  registerPipeConnector,
+  registerFieldDatapropEdge,
+  registerFieldNode,
+  registerDatapropNode,
+  registerChartThumbNode,
+  registerDatapropChartThumbEdge,
+} from '../graph';
 
 import './index.less';
 
 registerFieldNode();
 registerDatapropNode();
+registerChartThumbNode();
 registerFieldDatapropEdge();
+registerDatapropChartThumbEdge();
 registerPipeConnector();
 
 export const Playground: React.FC = () => {
@@ -79,6 +89,14 @@ export const Playground: React.FC = () => {
         modifiers: 'shift',
         rubberband: true,
       },
+      onEdgeLabelRendered: (args) => {
+        const { selectors, edge } = args;
+        const content = selectors.foContent as HTMLDivElement;
+        if (content) {
+          const channel = edge?.id === 'dce-1' ? 'Arc' : 'Col';
+          ReactDOM.render(<EncodingLabel channel={channel} />, content);
+        }
+      },
     });
 
     graph.on('edge:connected', ({ edge }) => {
@@ -107,7 +125,7 @@ export const Playground: React.FC = () => {
     const init = (data: Cell.Metadata[]) => {
       const cells: Cell[] = [];
       data.forEach((item) => {
-        if ([CELL_NAMES.fieldNode, CELL_NAMES.datapropNode].includes(`${item.shape}`)) {
+        if ([CELL_NAMES.fieldNode, CELL_NAMES.datapropNode, CELL_NAMES.chartThumbNode].includes(`${item.shape}`)) {
           cells.push(graph.createNode(item));
         } else {
           cells.push(graph.createEdge(item));

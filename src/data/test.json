@@ -129,8 +129,8 @@
       "dataprop": {
         "count": 3,
         "distinct": 3,
-        "type": "integer",
-        "recommendation": "integer",
+        "type": "string",
+        "recommendation": "time",
         "missing": 0,
         "rawData": [4, 5, 6],
         "valueMap": { "4": 1, "5": 1, "6": 1 },
@@ -146,7 +146,7 @@
         "variance": 0.6666666666666666,
         "standardDeviation": 0.816496580927726,
         "zeros": 0,
-        "levelOfMeasurements": ["Interval", "Discrete"],
+        "levelOfMeasurements": ["Time"],
         "name": "b"
       }
     },
@@ -172,8 +172,8 @@
       "dataprop": {
         "count": 3,
         "distinct": 3,
-        "type": "integer",
-        "recommendation": "integer",
+        "type": "string",
+        "recommendation": "string",
         "missing": 0,
         "rawData": [7, 8, 9],
         "valueMap": { "7": 1, "8": 1, "9": 1 },
@@ -189,7 +189,7 @@
         "variance": 0.6666666666666666,
         "standardDeviation": 0.816496580927726,
         "zeros": 0,
-        "levelOfMeasurements": ["Interval", "Discrete"],
+        "levelOfMeasurements": ["Nominal"],
         "name": "c"
       }
     },
@@ -215,8 +215,8 @@
       "dataprop": {
         "count": 3,
         "distinct": 3,
-        "type": "integer",
-        "recommendation": "integer",
+        "type": "string",
+        "recommendation": "boolean",
         "missing": 0,
         "rawData": [1, 2, 3],
         "valueMap": { "1": 1, "2": 1, "3": 1 },
@@ -232,7 +232,7 @@
         "variance": 0.6666666666666666,
         "standardDeviation": 0.816496580927726,
         "zeros": 0,
-        "levelOfMeasurements": ["Interval", "Discrete"],
+        "levelOfMeasurements": ["Nominal"],
         "name": "a"
       }
     },
@@ -243,6 +243,87 @@
       },
       {
         "id": "dn-4-2",
+        "group": "right"
+      }
+    ]
+  },
+  {
+    "id": "ctn-1",
+    "shape": "chartthumb-node",
+    "x": 600,
+    "y": 60,
+    "data": {
+      "nodeType": "chartthumb-node",
+      "chartAdvice": {
+        "type": "pie_chart",
+        "spec": {
+          "basis": {
+            "type": "chart"
+          },
+          "data": {
+            "nodeType": "chartthumb-node",
+            "type": "json-array",
+            "values": [
+              {
+                "price": 100,
+                "type": "A"
+              },
+              {
+                "price": 120,
+                "type": "B"
+              },
+              {
+                "price": 150,
+                "type": "C"
+              }
+            ]
+          },
+          "layer": [
+            {
+              "mark": {
+                "type": "arc"
+              },
+              "encoding": {
+                "theta": {
+                  "field": "price",
+                  "type": "quantitative"
+                },
+                "color": {
+                  "field": "type",
+                  "type": "nominal"
+                }
+              }
+            }
+          ]
+        },
+        "score": 1.5535986680617797,
+        "lint": [
+          {
+            "type": "SOFT",
+            "id": "diff-pie-sector",
+            "score": 0.0405306694568926,
+            "docs": {
+              "lintText": "The difference between sectors of a pie chart should be large enough."
+            }
+          },
+          {
+            "type": "SOFT",
+            "id": "series-qty-limit",
+            "score": 0.6666666666666666,
+            "docs": {
+              "lintText": "Some charts should has at most N values for the series."
+            }
+          }
+        ]
+      }
+    },
+    "ports": [
+      {
+        "id": "ctn-1-1",
+        "group": "left"
+      },
+      {
+        "id": "ctn-1-2",
         "group": "right"
       }
     ]
@@ -296,6 +377,32 @@
     "target": {
       "cell": "dn-4",
       "port": "dn-4-1"
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "dce-1",
+    "shape": "dataprop-chartthumb-edge",
+    "source": {
+      "cell": "dn-1",
+      "port": "dn-1-2"
+    },
+    "target": {
+      "cell": "ctn-1",
+      "port": "ctn-1-1"
+    },
+    "zIndex": 0
+  },
+  {
+    "id": "dce-2",
+    "shape": "dataprop-chartthumb-edge",
+    "source": {
+      "cell": "dn-3",
+      "port": "dn-3-2"
+    },
+    "target": {
+      "cell": "ctn-1",
+      "port": "ctn-1-1"
     },
     "zIndex": 0
   }

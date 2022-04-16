@@ -1,0 +1,40 @@
+.node.chartthumb-node {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  border: 1px solid #c2c8d5;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+
+  .chartview {
+  }
+
+  .infoview {
+    overflow: hidden;
+
+    .infoview-table {
+      overflow: hidden;
+      margin: 4px;
+
+      .ant-table {
+        width: 100px;
+      }
+
+      .ant-table-cell {
+        padding: 4px;
+        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+
+        .chart-id {
+          font-size: 14px;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}
