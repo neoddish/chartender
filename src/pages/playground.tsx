@@ -10,9 +10,11 @@ import {
   registerPipeConnector,
   registerFieldDatapropEdge,
   registerFieldNode,
+  registerResultNode,
   registerDatapropNode,
   registerChartThumbNode,
   registerDatapropChartThumbEdge,
+  registerChartThumbResultEdge,
 } from '../graph';
 
 import './index.less';
@@ -20,8 +22,10 @@ import './index.less';
 registerFieldNode();
 registerDatapropNode();
 registerChartThumbNode();
+registerResultNode();
 registerFieldDatapropEdge();
 registerDatapropChartThumbEdge();
+registerChartThumbResultEdge();
 registerPipeConnector();
 
 export const Playground: React.FC = () => {
@@ -125,7 +129,11 @@ export const Playground: React.FC = () => {
     const init = (data: Cell.Metadata[]) => {
       const cells: Cell[] = [];
       data.forEach((item) => {
-        if ([CELL_NAMES.fieldNode, CELL_NAMES.datapropNode, CELL_NAMES.chartThumbNode].includes(`${item.shape}`)) {
+        if (
+          [CELL_NAMES.fieldNode, CELL_NAMES.datapropNode, CELL_NAMES.chartThumbNode, CELL_NAMES.resultNode].includes(
+            `${item.shape}`
+          )
+        ) {
           cells.push(graph.createNode(item));
         } else {
           cells.push(graph.createEdge(item));

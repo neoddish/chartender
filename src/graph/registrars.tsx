@@ -3,7 +3,7 @@ import React from 'react';
 import { Graph, Markup, Path } from '@antv/x6';
 import '@antv/x6-react-shape';
 
-import { FieldNode, DataPropNode, ChartThumbNode } from '../components';
+import { FieldNode, DataPropNode, ChartThumbNode, ResultNode } from '../components';
 import { CELL_NAMES } from '../constants';
 
 export const registerFieldNode = () => {
@@ -82,7 +82,7 @@ export const registerChartThumbNode = () => {
     {
       inherit: 'react-shape',
       width: 220,
-      height: 100,
+      height: 110,
       component: <ChartThumbNode />,
       ports: {
         groups: {
@@ -100,6 +100,35 @@ export const registerChartThumbNode = () => {
           },
           right: {
             position: 'right',
+            attrs: {
+              circle: {
+                r: 4,
+                magnet: true,
+                stroke: '#C2C8D5',
+                strokeWidth: 1,
+                fill: '#fff',
+              },
+            },
+          },
+        },
+      },
+    },
+    true
+  );
+};
+
+export const registerResultNode = () => {
+  Graph.registerNode(
+    CELL_NAMES.resultNode,
+    {
+      inherit: 'react-shape',
+      width: 400,
+      height: 800,
+      component: <ResultNode />,
+      ports: {
+        groups: {
+          left: {
+            position: 'left',
             attrs: {
               circle: {
                 r: 4,
@@ -153,6 +182,23 @@ export const registerDatapropChartThumbEdge = () => {
       label: {
         position: 0.5,
       },
+      attrs: {
+        line: {
+          stroke: '#C2C8D5',
+          strokeWidth: 1,
+          targetMarker: null,
+        },
+      },
+    },
+    true
+  );
+};
+
+export const registerChartThumbResultEdge = () => {
+  Graph.registerEdge(
+    CELL_NAMES.chartThumbResultEdge,
+    {
+      inherit: 'edge',
       attrs: {
         line: {
           stroke: '#C2C8D5',

@@ -27,12 +27,10 @@ export const ChartView: React.FC<ChartViewProps> = ({
     if (chartRef?.current) {
       const plot = specToG2Plot(spec, chartRef.current);
       const canvas = chartRef.current.querySelector('canvas');
-      console.log('1');
-      console.log(canvas);
 
       if (scale && scale.x && scale.y) {
         const ctx = canvas?.getContext('2d');
-        console.log(scale);
+
         if (ctx) ctx.scale(0.5, 0.5);
 
         ctx.canvas.width = 40;

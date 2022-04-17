@@ -37,6 +37,8 @@
     "@antv/data-wizard": "^2.0.0",
     "@antv/g2plot": "^2.4.13",
     "@antv/g6": "^4.6.4",
+    "@antv/s2": "^1.14.0",
+    "@antv/s2-react": "^1.13.0",
     "@antv/x6": "^1.31.3",
     "@antv/x6-react-shape": "^1.6.0",
     "ajv": "^8.11.0",

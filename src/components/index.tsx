@@ -6,3 +6,5 @@ export * from './ChartThumbNode';
 export * from './ChartView';
 export * from './ChartImg';
 export * from './EncodingLabel';
+export * from './ResultNode';
+export * from './ScoreTable';
