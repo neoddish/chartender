@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import { Graph, Cell } from '@antv/x6';
 import '@antv/x6-react-shape';
 
-import { FieldNodeData, EncodingLabel } from '../components';
-import { CELL_NAMES } from '../constants';
+import { EncodingLabel } from '../components';
+import { CELL_NAMES, UI_GRAPH } from '../constants';
 import {
   registerPipeConnector,
   registerFieldDatapropEdge,
@@ -15,7 +15,12 @@ import {
   registerChartThumbNode,
   registerDatapropChartThumbEdge,
   registerChartThumbResultEdge,
+  jsonToGraphData,
+  genResultNode,
 } from '../graph';
+
+import type { FieldNodeData } from '../types';
+import type { Advice } from '@antv/chart-advisor';
 
 import './index.less';
 
@@ -34,15 +39,12 @@ export const Playground: React.FC = () => {
   useEffect(() => {
     const graph: Graph = new Graph({
       container: document.getElementById('container')!,
-      width: 1440,
-      height: 900,
+      width: UI_GRAPH.WIDTH,
+      height: UI_GRAPH.HEIGHT,
       background: {
         color: '#f2f5f7',
       },
-      panning: {
-        enabled: true,
-        eventTypes: ['leftMouseDown', 'mouseWheel'],
-      },
+      panning: false,
       mousewheel: {
         enabled: true,
         modifiers: 'ctrl',
@@ -87,11 +89,13 @@ export const Playground: React.FC = () => {
       },
       selecting: {
         enabled: true,
-        multiple: true,
-        rubberEdge: true,
-        rubberNode: true,
-        modifiers: 'shift',
-        rubberband: true,
+        filter(node) {
+          return node.shape === 'chartthumb-node';
+        },
+      },
+      interacting: {
+        nodeMovable: false,
+        edgeMovable: false,
       },
       onEdgeLabelRendered: (args) => {
         const { selectors, edge } = args;
@@ -125,10 +129,23 @@ export const Playground: React.FC = () => {
       });
     });
 
+    graph.on('node:selected', ({ node }) => {
+      const { chartAdvice } = node.getData();
+      const resultNode = graph.getCellById(CELL_NAMES.resultNode);
+      resultNode.replaceData({ ...resultNode.getData(), chartAdvice });
+    });
+
     // 初始化节点/边
     const init = (data: Cell.Metadata[]) => {
+      let resultAdvice: any = null;
+
       const cells: Cell[] = [];
       data.forEach((item) => {
+        // init selectedChartThumbNode
+        if (item.shape === CELL_NAMES.chartThumbNode && !resultAdvice) {
+          resultAdvice = item.data?.chartAdvice;
+        }
+
         if (
           [CELL_NAMES.fieldNode, CELL_NAMES.datapropNode, CELL_NAMES.chartThumbNode, CELL_NAMES.resultNode].includes(
             `${item.shape}`
@@ -139,13 +156,21 @@ export const Playground: React.FC = () => {
           cells.push(graph.createEdge(item));
         }
       });
+
+      // init result node
+      if (resultAdvice) {
+        const resultNodeGraphData = genResultNode(resultAdvice as Advice);
+        cells.push(graph.createNode(resultNodeGraphData));
+      }
+
       graph.resetCells(cells);
     };
 
-    fetch('../data/test.json')
-      .then((response) => response.json())
+    fetch('../presets/data/mini-superstore.json')
+      .then((res) => res.json())
       .then((data) => {
-        init(data);
+        const graphData = jsonToGraphData(data, ['Order ID']);
+        init(graphData);
         graph.centerContent();
       });
 
@@ -163,20 +188,6 @@ export const Playground: React.FC = () => {
 
     return result;
   };
-
-  // const changeSize = () => {
-  //   console.log(
-  //     pipeGraph
-  //       ?.getNodes()
-  //       .find((node) => node.id === 'fn-1')
-  //       ?.position()
-  //   );
-
-  //   pipeGraph
-  //     ?.getNodes()
-  //     .find((node) => node.id === 'fn-1')
-  //     ?.scale(1, 2, { x: 0, y: 200 });
-  // };
 
   return (
     <div>

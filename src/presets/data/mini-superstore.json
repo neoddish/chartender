@@ -1,0 +1,502 @@
+[
+  {
+    "Order Date": "2018/11/8",
+    "City": "Henderson",
+    "Sales": 261.96
+  },
+  {
+    "Order Date": "2018/11/8",
+    "City": "Henderson",
+    "Sales": 731.94
+  },
+  {
+    "Order Date": "2018/6/12",
+    "City": "Los Angeles",
+    "Sales": 14.62
+  },
+  {
+    "Order Date": "2017/10/11",
+    "City": "Fort Lauderdale",
+    "Sales": 957.5775
+  },
+  {
+    "Order Date": "2017/10/11",
+    "City": "Fort Lauderdale",
+    "Sales": 22.368
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 48.86
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 7.28
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 907.152
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 18.504
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 114.9
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 1706.184
+  },
+  {
+    "Order Date": "2016/6/9",
+    "City": "Los Angeles",
+    "Sales": 911.424
+  },
+  {
+    "Order Date": "2019/4/15",
+    "City": "Concord",
+    "Sales": 15.552
+  },
+  {
+    "Order Date": "2018/12/5",
+    "City": "Seattle",
+    "Sales": 407.976
+  },
+  {
+    "Order Date": "2017/11/22",
+    "City": "Fort Worth",
+    "Sales": 68.81
+  },
+  {
+    "Order Date": "2017/11/22",
+    "City": "Fort Worth",
+    "Sales": 2.544
+  },
+  {
+    "Order Date": "2016/11/11",
+    "City": "Madison",
+    "Sales": 665.88
+  },
+  {
+    "Order Date": "2016/5/13",
+    "City": "West Jordan",
+    "Sales": 55.5
+  },
+  {
+    "Order Date": "2016/8/27",
+    "City": "San Francisco",
+    "Sales": 8.56
+  },
+  {
+    "Order Date": "2016/8/27",
+    "City": "San Francisco",
+    "Sales": 213.48
+  },
+  {
+    "Order Date": "2016/8/27",
+    "City": "San Francisco",
+    "Sales": 22.72
+  },
+  {
+    "Order Date": "2018/12/9",
+    "City": "Fremont",
+    "Sales": 19.46
+  },
+  {
+    "Order Date": "2018/12/9",
+    "City": "Fremont",
+    "Sales": 60.34
+  },
+  {
+    "Order Date": "2019/7/16",
+    "City": "Philadelphia",
+    "Sales": 71.372
+  },
+  {
+    "Order Date": "2017/9/25",
+    "City": "Orem",
+    "Sales": 1044.63
+  },
+  {
+    "Order Date": "2018/1/16",
+    "City": "Los Angeles",
+    "Sales": 11.648
+  },
+  {
+    "Order Date": "2018/1/16",
+    "City": "Los Angeles",
+    "Sales": 90.57
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 3083.43
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 9.618
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 124.2
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 3.264
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 86.304
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 6.858
+  },
+  {
+    "Order Date": "2017/9/17",
+    "City": "Philadelphia",
+    "Sales": 15.76
+  },
+  {
+    "Order Date": "2019/10/19",
+    "City": "Houston",
+    "Sales": 29.472
+  },
+  {
+    "Order Date": "2018/12/8",
+    "City": "Richardson",
+    "Sales": 1097.544
+  },
+  {
+    "Order Date": "2018/12/8",
+    "City": "Richardson",
+    "Sales": 190.92
+  },
+  {
+    "Order Date": "2017/12/27",
+    "City": "Houston",
+    "Sales": 113.328
+  },
+  {
+    "Order Date": "2017/12/27",
+    "City": "Houston",
+    "Sales": 532.3992
+  },
+  {
+    "Order Date": "2017/12/27",
+    "City": "Houston",
+    "Sales": 212.058
+  },
+  {
+    "Order Date": "2017/12/27",
+    "City": "Houston",
+    "Sales": 371.168
+  },
+  {
+    "Order Date": "2019/9/10",
+    "City": "Naperville",
+    "Sales": 147.168
+  },
+  {
+    "Order Date": "2018/7/17",
+    "City": "Los Angeles",
+    "Sales": 77.88
+  },
+  {
+    "Order Date": "2019/9/19",
+    "City": "Melbourne",
+    "Sales": 95.616
+  },
+  {
+    "Order Date": "2018/3/11",
+    "City": "Eagan",
+    "Sales": 45.98
+  },
+  {
+    "Order Date": "2018/3/11",
+    "City": "Eagan",
+    "Sales": 17.46
+  },
+  {
+    "Order Date": "2016/10/20",
+    "City": "Westland",
+    "Sales": 211.96
+  },
+  {
+    "Order Date": "2018/6/20",
+    "City": "Dover",
+    "Sales": 45
+  },
+  {
+    "Order Date": "2018/6/20",
+    "City": "Dover",
+    "Sales": 21.8
+  },
+  {
+    "Order Date": "2017/4/18",
+    "City": "New Albany",
+    "Sales": 38.22
+  },
+  {
+    "Order Date": "2017/4/18",
+    "City": "New Albany",
+    "Sales": 75.18
+  },
+  {
+    "Order Date": "2017/4/18",
+    "City": "New Albany",
+    "Sales": 6.16
+  },
+  {
+    "Order Date": "2017/4/18",
+    "City": "New Albany",
+    "Sales": 89.99
+  },
+  {
+    "Order Date": "2018/12/11",
+    "City": "New York City",
+    "Sales": 15.26
+  },
+  {
+    "Order Date": "2018/12/11",
+    "City": "New York City",
+    "Sales": 1029.95
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 208.56
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 32.4
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 319.41
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 14.56
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 30
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 48.48
+  },
+  {
+    "Order Date": "2018/6/17",
+    "City": "Troy",
+    "Sales": 1.68
+  },
+  {
+    "Order Date": "2017/11/24",
+    "City": "Los Angeles",
+    "Sales": 13.98
+  },
+  {
+    "Order Date": "2017/11/24",
+    "City": "Los Angeles",
+    "Sales": 25.824
+  },
+  {
+    "Order Date": "2017/11/24",
+    "City": "Los Angeles",
+    "Sales": 146.73
+  },
+  {
+    "Order Date": "2017/11/24",
+    "City": "Los Angeles",
+    "Sales": 79.76
+  },
+  {
+    "Order Date": "2017/4/30",
+    "City": "Chicago",
+    "Sales": 213.115
+  },
+  {
+    "Order Date": "2016/12/5",
+    "City": "Gilbert",
+    "Sales": 1113.024
+  },
+  {
+    "Order Date": "2016/12/5",
+    "City": "Gilbert",
+    "Sales": 167.968
+  },
+  {
+    "Order Date": "2018/6/4",
+    "City": "Springfield",
+    "Sales": 75.88
+  },
+  {
+    "Order Date": "2018/9/18",
+    "City": "New York City",
+    "Sales": 4.616
+  },
+  {
+    "Order Date": "2019/9/14",
+    "City": "Jackson",
+    "Sales": 19.05
+  },
+  {
+    "Order Date": "2017/4/26",
+    "City": "Memphis",
+    "Sales": 831.936
+  },
+  {
+    "Order Date": "2017/4/26",
+    "City": "Memphis",
+    "Sales": 97.04
+  },
+  {
+    "Order Date": "2017/4/26",
+    "City": "Memphis",
+    "Sales": 72.784
+  },
+  {
+    "Order Date": "2019/12/9",
+    "City": "Houston",
+    "Sales": 1.248
+  },
+  {
+    "Order Date": "2019/12/9",
+    "City": "Houston",
+    "Sales": 9.708
+  },
+  {
+    "Order Date": "2019/12/9",
+    "City": "Houston",
+    "Sales": 27.24
+  },
+  {
+    "Order Date": "2016/11/26",
+    "City": "Houston",
+    "Sales": 19.3
+  },
+  {
+    "Order Date": "2018/6/12",
+    "City": "Decatur",
+    "Sales": 208.16
+  },
+  {
+    "Order Date": "2018/6/12",
+    "City": "Decatur",
+    "Sales": 16.74
+  },
+  {
+    "Order Date": "2016/10/12",
+    "City": "San Francisco",
+    "Sales": 14.9
+  },
+  {
+    "Order Date": "2016/10/12",
+    "City": "San Francisco",
+    "Sales": 21.39
+  },
+  {
+    "Order Date": "2017/9/3",
+    "City": "Durham",
+    "Sales": 200.984
+  },
+  {
+    "Order Date": "2019/11/13",
+    "City": "Chicago",
+    "Sales": 230.376
+  },
+  {
+    "Order Date": "2019/5/28",
+    "City": "Columbia",
+    "Sales": 301.96
+  },
+  {
+    "Order Date": "2019/10/26",
+    "City": "Rochester",
+    "Sales": 19.99
+  },
+  {
+    "Order Date": "2019/10/26",
+    "City": "Rochester",
+    "Sales": 6.16
+  },
+  {
+    "Order Date": "2018/4/5",
+    "City": "Houston",
+    "Sales": 158.368
+  },
+  {
+    "Order Date": "2018/9/17",
+    "City": "Los Angeles",
+    "Sales": 20.1
+  },
+  {
+    "Order Date": "2018/9/17",
+    "City": "Los Angeles",
+    "Sales": 73.584
+  },
+  {
+    "Order Date": "2018/9/17",
+    "City": "Los Angeles",
+    "Sales": 6.48
+  },
+  {
+    "Order Date": "2017/1/31",
+    "City": "Minneapolis",
+    "Sales": 12.96
+  },
+  {
+    "Order Date": "2017/1/31",
+    "City": "Minneapolis",
+    "Sales": 53.34
+  },
+  {
+    "Order Date": "2017/1/31",
+    "City": "Minneapolis",
+    "Sales": 32.96
+  },
+  {
+    "Order Date": "2019/11/6",
+    "City": "Portland",
+    "Sales": 5.682
+  },
+  {
+    "Order Date": "2019/11/9",
+    "City": "New York City",
+    "Sales": 96.53
+  },
+  {
+    "Order Date": "2019/6/17",
+    "City": "San Francisco",
+    "Sales": 51.312
+  },
+  {
+    "Order Date": "2018/9/6",
+    "City": "Saint Paul",
+    "Sales": 77.88
+  },
+  {
+    "Order Date": "2018/8/29",
+    "City": "Chicago",
+    "Sales": 64.624
+  }
+]

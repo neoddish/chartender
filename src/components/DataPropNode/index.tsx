@@ -3,16 +3,10 @@ import React from 'react';
 import { Node } from '@antv/x6';
 import { Popover, Button } from 'antd';
 
+import { DataPropNodeData } from '../../types';
 import { MetaList } from './MetaList';
 
 import './index.less';
-
-export interface DataPropNodeData {
-  id: string;
-  fieldName: string;
-  nodeType: 'dataprop-node';
-  dataprop: any;
-}
 
 export class DataPropNode extends React.Component<{ node?: Node }> {
   shouldComponentUpdate() {

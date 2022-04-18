@@ -94,9 +94,9 @@ const getTargetColor = (value: any) => {
 export const ScoreTable: React.FC = () => {
   const s2DataConfig = {
     fields: {
-      rows: ['ruleType', 'ruleId', 'score', 'detail'],
+      rows: ['ruleType', 'ruleId'],
       column: [],
-      values: ['score'],
+      values: ['score', 'detail'],
       valueInCols: true,
     },
     meta: [
@@ -135,9 +135,6 @@ export const ScoreTable: React.FC = () => {
     },
     style: {
       layoutWidthType: 'colAdaptive',
-      colCfg: {
-        hideMeasureColumn: true,
-      },
       cellCfg: {
         width: 100,
       },

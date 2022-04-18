@@ -2,19 +2,12 @@ import React from 'react';
 
 import { Node } from '@antv/x6';
 
-import { DataTypeIcon, DataType } from '../DataTypeIcon';
+import { DataTypeIcon } from '../DataTypeIcon';
 import { StatusIcon } from '../StatusIcon';
 
-import './index.less';
+import type { FieldNodeData } from '../../types';
 
-export interface FieldNodeData {
-  id: string;
-  nodeType: 'field-node';
-  fieldType: 'dimension' | 'measure';
-  dataType: DataType;
-  status: string;
-  fieldName: string;
-}
+import './index.less';
 
 export class FieldNode extends React.Component<{ node?: Node }> {
   shouldComponentUpdate() {

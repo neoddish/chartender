@@ -4,15 +4,15 @@ import { Graph, Markup, Path } from '@antv/x6';
 import '@antv/x6-react-shape';
 
 import { FieldNode, DataPropNode, ChartThumbNode, ResultNode } from '../components';
-import { CELL_NAMES } from '../constants';
+import { CELL_NAMES, UI_NODES } from '../constants';
 
 export const registerFieldNode = () => {
   Graph.registerNode(
     CELL_NAMES.fieldNode,
     {
       inherit: 'react-shape',
-      width: 180,
-      height: 36,
+      width: UI_NODES.FIELD_NODE.WIDTH,
+      height: UI_NODES.FIELD_NODE.HEIGHT,
       component: <FieldNode />,
       ports: {
         groups: {
@@ -40,8 +40,8 @@ export const registerDatapropNode = () => {
     CELL_NAMES.datapropNode,
     {
       inherit: 'react-shape',
-      width: 200,
-      height: 147,
+      width: UI_NODES.DATAPROP_NODE.WIDTH,
+      height: UI_NODES.DATAPROP_NODE.HEIGHT,
       component: <DataPropNode />,
       ports: {
         groups: {
@@ -81,8 +81,8 @@ export const registerChartThumbNode = () => {
     CELL_NAMES.chartThumbNode,
     {
       inherit: 'react-shape',
-      width: 220,
-      height: 110,
+      width: UI_NODES.CHARTTHUMB_NODE.WIDTH,
+      height: UI_NODES.CHARTTHUMB_NODE.HEIGHT,
       component: <ChartThumbNode />,
       ports: {
         groups: {

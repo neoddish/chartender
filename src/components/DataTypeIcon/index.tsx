@@ -6,24 +6,29 @@ import {
   FieldBinaryOutlined,
   FieldTimeOutlined,
   GlobalOutlined,
+  ExpandOutlined,
+  ForkOutlined,
 } from '@ant-design/icons';
 
-import './index.less';
+import type { DataType } from '../../types';
 
-export type DataType = 'string' | 'number' | 'boolean' | 'time' | 'geo';
+import './index.less';
 
 const COLOR = 'rgba(0,0,0,0.45)';
 
 const typeMap: Record<DataType, any> = {
   string: <FieldStringOutlined style={{ color: COLOR }} />,
-  number: <FieldNumberOutlined style={{ color: COLOR }} />,
+  integer: <FieldNumberOutlined style={{ color: COLOR }} />,
+  float: <FieldNumberOutlined style={{ color: COLOR }} />,
   boolean: <FieldBinaryOutlined style={{ color: COLOR }} />,
-  time: <FieldTimeOutlined style={{ color: COLOR }} />,
+  date: <FieldTimeOutlined style={{ color: COLOR }} />,
   geo: <GlobalOutlined style={{ color: COLOR }} />,
+  null: <ExpandOutlined style={{ color: COLOR }} />,
+  mixed: <ForkOutlined style={{ color: COLOR }} />,
 };
 
 interface DataTypeIconProps {
-  type: 'string' | 'number' | 'boolean' | 'time' | 'geo';
+  type: DataType;
 }
 
 export const DataTypeIcon: React.FC<DataTypeIconProps> = ({ type }) => <div className="type-icon">{typeMap[type]}</div>;

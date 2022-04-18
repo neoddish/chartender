@@ -2,18 +2,13 @@ import React from 'react';
 
 import { Node } from '@antv/x6';
 import { Divider, Table, Tag } from 'antd';
-import { Advice } from '@antv/chart-advisor';
-import { ChartAntVSpec } from '@antv/antv-spec';
 
 import { ChartImg } from '../ChartImg';
 
-import './index.less';
+import type { ChartAntVSpec } from '@antv/antv-spec';
+import type { ChartThumbNodeData } from '../../types';
 
-export interface ChartThumbNodeData {
-  id: string;
-  nodeType: 'chartthumb-node';
-  chartAdvice: Advice;
-}
+import './index.less';
 
 const columns = [
   {

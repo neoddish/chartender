@@ -1,18 +1,13 @@
 import React from 'react';
 
 import { Node } from '@antv/x6';
-import { Advice } from '@antv/chart-advisor';
 
 import { ChartView } from '../ChartView';
 import { ScoreTable } from '../ScoreTable';
 
-import './index.less';
+import type { ResultNodeData } from '../../types';
 
-export interface ResultNodeData {
-  id: string;
-  nodeType: 'chart-node';
-  chartAdvice: Advice;
-}
+import './index.less';
 
 export class ResultNode extends React.Component<{ node?: Node }> {
   private chartRef = React.createRef();
