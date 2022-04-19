@@ -122,8 +122,8 @@ export const registerResultNode = () => {
     CELL_NAMES.resultNode,
     {
       inherit: 'react-shape',
-      width: 400,
-      height: 800,
+      width: UI_NODES.RESULT_NODE.WIDTH,
+      height: UI_NODES.RESULT_NODE.HEIGHT,
       component: <ResultNode />,
       ports: {
         groups: {
@@ -181,10 +181,11 @@ export const registerDatapropChartThumbEdge = () => {
       },
       label: {
         position: 0.5,
+        data: { channel: '', active: false },
       },
       attrs: {
         line: {
-          stroke: '#C2C8D5',
+          stroke: '#C2C8D540',
           strokeWidth: 1,
           targetMarker: null,
         },

@@ -17,6 +17,8 @@ import {
   registerChartThumbResultEdge,
   jsonToGraphData,
   genResultNode,
+  switchEdgeActive,
+  genChartThumbResultEdge,
 } from '../graph';
 
 import type { FieldNodeData } from '../types';
@@ -98,11 +100,11 @@ export const Playground: React.FC = () => {
         edgeMovable: false,
       },
       onEdgeLabelRendered: (args) => {
-        const { selectors, edge } = args;
+        const { selectors, label } = args;
         const content = selectors.foContent as HTMLDivElement;
         if (content) {
-          const channel = edge?.id === 'dce-1' ? 'Arc' : 'Col';
-          ReactDOM.render(<EncodingLabel channel={channel} />, content);
+          const { channel, active } = label!.data;
+          ReactDOM.render(<EncodingLabel channel={channel} active={active} />, content);
         }
       },
     });
@@ -133,6 +135,23 @@ export const Playground: React.FC = () => {
       const { chartAdvice } = node.getData();
       const resultNode = graph.getCellById(CELL_NAMES.resultNode);
       resultNode.replaceData({ ...resultNode.getData(), chartAdvice });
+
+      // active related dce
+      const allDatapropChartThumbEdges = graph
+        .getEdges()
+        .filter((edge) => edge.shape === CELL_NAMES.datapropChartThumbEdge);
+
+      const relatedEdges = allDatapropChartThumbEdges.filter((edge) => edge.getTargetCellId() === node.id);
+
+      allDatapropChartThumbEdges.forEach((edge) => switchEdgeActive(edge, false));
+      relatedEdges.forEach((edge) => {
+        switchEdgeActive(edge, true);
+      });
+
+      // init chartthumbnode - resultnode edge
+      graph.removeEdge(CELL_NAMES.chartThumbResultEdge);
+      const cre = genChartThumbResultEdge(node as any, resultNode as any);
+      graph.addEdge(cre);
     });
 
     // 初始化节点/边
@@ -164,6 +183,10 @@ export const Playground: React.FC = () => {
       }
 
       graph.resetCells(cells);
+
+      // select the first chartthumb node.
+      const fisrtChartNode = graph.getNodes().find((node) => node.shape === CELL_NAMES.chartThumbNode);
+      if (fisrtChartNode) graph.select(fisrtChartNode);
     };
 
     fetch('../presets/data/mini-superstore.json')

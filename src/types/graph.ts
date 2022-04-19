@@ -9,7 +9,7 @@ export type JsonData = JsonDatum[];
 
 export type DataType = analyzer.TypeSpecifics | 'mixed' | 'geo';
 
-/** Nodes */
+/* Nodes */
 
 interface X6Node {
   id: string;
@@ -46,6 +46,7 @@ export interface DataPropNode extends X6Node {
 export interface ChartThumbNodeData {
   nodeType: 'chartthumb-node';
   chartAdvice: Advice;
+  rank: number;
 }
 
 export interface ChartThumbNode extends X6Node {
@@ -66,3 +67,14 @@ export interface ResultNode extends X6Node {
 }
 
 export type Node = FieldNode | DataPropNode | ChartThumbNode | ResultNode;
+
+/* Edges */
+
+export interface Edge {
+  id: string;
+  shape: 'field-dataprop-edge' | 'dataprop-chartthumb-edge' | 'chartthumb-result-edge';
+  source: { cell: string; port: string };
+  target: { cell: string; port: string };
+  zIndex: number;
+  labels?: any[];
+}

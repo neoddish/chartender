@@ -53,13 +53,13 @@ export class ChartThumbNode extends React.Component<{ node?: Node }> {
   render() {
     const { node } = this.props;
     const data = node?.getData() as ChartThumbNodeData;
-    const { nodeType, chartAdvice } = data;
+    const { nodeType, chartAdvice, rank } = data;
 
     const { type, spec, score } = chartAdvice;
 
     const tableData = [
       { key: 'row-0', name: 'type', value: type },
-      { key: 'row-1', name: 'rank', value: 1 },
+      { key: 'row-1', name: 'rank', value: rank + 1 },
       { key: 'row-2', name: 'score', value: score },
     ];
 

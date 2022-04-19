@@ -1,10 +1,13 @@
 import { DataFrame } from '@antv/data-wizard';
 import { ChartAdvisor } from '@antv/chart-advisor';
 
-import { UI_GRAPH, UI_AXES, UI_NODES } from '../constants';
+import { UI_GRAPH, UI_AXES, UI_NODES, CELL_NAMES } from '../constants';
 
 import type { Advice } from '@antv/chart-advisor';
+import type { Edge as OriEdge, Node as OriNode } from '@antv/x6';
+import type { ChartEncoding } from '@antv/antv-spec';
 
+import type { ChartLayer } from '@antv/antv-spec/lib/src/schema/layer';
 import type {
   FieldNode,
   FieldNodeData,
@@ -18,6 +21,7 @@ import type {
   JsonDatum,
   FieldInfo,
   Node,
+  Edge,
 } from '../types';
 
 /**
@@ -123,6 +127,7 @@ function genChartThumbNodes(advices: Advice[]): ChartThumbNode[] {
     const data: ChartThumbNodeData = {
       nodeType: 'chartthumb-node',
       chartAdvice: advice,
+      rank: i,
     };
 
     const result: ChartThumbNode = {
@@ -221,6 +226,101 @@ function layoutChartThumbNodes(chartThumbNodes: ChartThumbNode[]): ChartThumbNod
   return layoutAxisNodes(chartThumbNodes, { H, h, g, x }) as ChartThumbNode[];
 }
 
+interface genEdgeOptions {
+  fieldNodes: FieldNode[];
+  datapropNodes: DataPropNode[];
+  chartThumbNodes: ChartThumbNode[];
+}
+
+/**
+ * Generate all Edges.
+ *
+ * @param options
+ * @returns
+ */
+function genEdge(options: genEdgeOptions): Edge[] {
+  const { fieldNodes, datapropNodes, chartThumbNodes } = options;
+
+  // field-dataprop-edge
+  const fde: Edge[] = [];
+  for (let i = 0; i < fieldNodes.length; i += 1) {
+    const s = fieldNodes[i];
+    if (datapropNodes.length > i) {
+      const t = datapropNodes[i];
+
+      if (s.data.fieldName === t.data.fieldName) {
+        const newEdge: Edge = {
+          id: `${CELL_NAMES.fieldDatapropEdge}-${i}`,
+          shape: 'field-dataprop-edge',
+          source: {
+            cell: s.id,
+            port: s.ports.find((p) => p.group === 'right')!.id,
+          },
+          target: {
+            cell: t.id,
+            port: t.ports.find((p) => p.group === 'left')!.id,
+          },
+          zIndex: 0,
+        };
+        fde.push(newEdge);
+      }
+    }
+  }
+
+  // dataprop-chartthumb-edge
+  const dce: Edge[] = [];
+  for (let i = 0; i < chartThumbNodes.length; i += 1) {
+    const chartThumbNode = chartThumbNodes[i];
+
+    const encodings: { channel: string; fieldName: string }[] = [];
+    (chartThumbNode.data.chartAdvice.spec?.layer as ChartLayer[]).forEach((layer) => {
+      if (layer.encoding) {
+        const channels = Object.keys(layer.encoding);
+        channels.forEach((channel) => {
+          encodings.push({
+            channel,
+            fieldName: layer.encoding[channel as keyof ChartEncoding]!.field!,
+          });
+        });
+      }
+    });
+
+    datapropNodes.forEach((dpn, j) => {
+      const encoding = encodings.find((enc) => enc.fieldName === dpn.data.fieldName);
+      if (encoding) {
+        const { channel } = encoding;
+
+        const newEdge: Edge = {
+          id: `${CELL_NAMES.datapropChartThumbEdge}-${i}-${j}`,
+          shape: 'dataprop-chartthumb-edge',
+          source: {
+            cell: dpn.id,
+            port: dpn.ports.find((p) => p.group === 'right')!.id,
+          },
+          target: {
+            cell: chartThumbNode.id,
+            port: chartThumbNode.ports.find((p) => p.group === 'left')!.id,
+          },
+          zIndex: 0,
+          labels: [
+            {
+              data: {
+                channel,
+                active: false,
+              },
+            },
+          ],
+        };
+        dce.push(newEdge);
+      }
+    });
+  }
+
+  const edges = [...fde, ...dce];
+
+  return edges;
+}
+
 /**
  * Generate basic graph data exclude result node.
  *
@@ -252,7 +352,13 @@ export function jsonToGraphData(json: JsonData, ignoreFields?: string[]) {
 
   const chartThumbNodesGraphData = layoutChartThumbNodes(genChartThumbNodes(adviseResults));
 
-  return [...fieldNodesGraphData, ...dataPropNodesGraphData, ...chartThumbNodesGraphData];
+  const edges = genEdge({
+    fieldNodes: fieldNodesGraphData,
+    datapropNodes: dataPropNodesGraphData,
+    chartThumbNodes: chartThumbNodesGraphData,
+  });
+
+  return [...fieldNodesGraphData, ...dataPropNodesGraphData, ...chartThumbNodesGraphData, ...edges];
 }
 
 /**
@@ -284,4 +390,57 @@ export function genResultNode(advice: Advice): ResultNode {
   };
 
   return resultNode;
+}
+
+/**
+ * Generate an edge from active ctn to rn.
+ *
+ * @todo generalize it to genEdgeBetween.
+ * @param activeChartThumbNode
+ * @param resultNode
+ * @returns
+ */
+export function genChartThumbResultEdge(activeChartThumbNode: OriNode, resultNode: OriNode): Edge {
+  const sNode = activeChartThumbNode;
+  const tNode = resultNode;
+
+  const newEdge: Edge = {
+    id: `${CELL_NAMES.chartThumbResultEdge}`,
+    shape: 'chartthumb-result-edge',
+    source: {
+      cell: sNode.id,
+      port: sNode.ports.items.find((p) => p.group === 'right')!.id!,
+    },
+    target: {
+      cell: tNode.id,
+      port: tNode.ports.items.find((p) => p.group === 'left')!.id!,
+    },
+    zIndex: 0,
+  };
+
+  return newEdge;
+}
+
+/**
+ * Switch edge status (active).
+ *
+ * @param edge
+ * @param active
+ * @param index
+ */
+export function switchEdgeActive(edge: OriEdge, active: boolean, index = 0) {
+  const labelInfo = edge.getLabelAt(index);
+
+  const newLabelInfo = JSON.parse(JSON.stringify(labelInfo));
+  newLabelInfo.data.active = active;
+
+  edge.setLabelAt(0, newLabelInfo);
+
+  if (active) {
+    edge.setAttrByPath('line/stroke', '#7262fd');
+    edge.setZIndex(1);
+  } else {
+    edge.setAttrByPath('line/stroke', '#C2C8D540');
+    edge.setZIndex(0);
+  }
 }
