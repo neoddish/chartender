@@ -1,3 +1,5 @@
+import miniSuperstore from './mini-superstore.json';
+
 const data1 = [
   { f1: 'a', f2: 1 },
   { f1: 'b', f2: 2 },
@@ -16,3 +18,5 @@ const data = {
 };
 
 export default data;
+
+export { miniSuperstore };
